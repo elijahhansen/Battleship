@@ -11,6 +11,12 @@ Model::is_game_over() const
     return false;
 }
 
+bool
+Model::advance_turn_() const
+{
+    return false;
+}
+
 
 
 

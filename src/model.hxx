@@ -19,5 +19,9 @@ public:
 
     bool is_game_over() const;
 
+    bool advance_turn_() const;
+
+
+
 
 };
