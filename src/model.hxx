@@ -1,18 +1,23 @@
 #pragma once
 
 #include <ge211.hxx>
-#include "board.hxx"
+#include "ship.hxx"
+#include"player.hxx"
+
 
 class Model
 {
 
 public:
-    using Dimensions = Board::Dimensions;
-    using Position = Board::Position;
-    using Rectangle = Board::Rectangle;
 
-    explicit Model(int size= 8);
+    using Dimensions = Ship::Dimensions;
+    using Position = Ship::Position;
+
+    explicit Model( int size = 8);
+
+    Model(int width, int height);
+
+    bool is_game_over() const;
 
 
-    Model(int width )
 };

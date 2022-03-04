@@ -11,9 +11,12 @@ public:
     using Dimensions = ge211::Dims<int>;
     using Position = ge211::Posn<int>;
 
+
+
 private:
 
     Position_set pset_;
+    bool alive_;
 
 
 
