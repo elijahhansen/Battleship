@@ -13,10 +13,10 @@ public:
 
 
 
-    bool hit_ship(Position) const;
+    bool hit_ship(Position) ;
 
     Position_set pset_;
-    bool alive_;
+    bool alive_ = true;
 
 
 

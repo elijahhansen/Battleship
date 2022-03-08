@@ -22,7 +22,21 @@ Model::Model(int width, int height)
 bool
 Model::is_game_over() const
 {
-    return false;
+    for (Ship s: p1)
+    {
+        if (s.alive_)
+        {
+            return false;
+        }
+    }
+    for (Ship s : p2)
+    {
+        if (s.alive_)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -52,15 +66,19 @@ Model::play_attack(std::vector<Ship> player, Model::Position p)
         {
             s.pset_[p] = false;
             //add position p to player's hit array
+
+
         }
     }
 }
 
-void
+bool
 Model::advance_turn_()
 {
     turn = other_player(turn);
 }
+
+void really_play_attack()
 
 
 

@@ -15,25 +15,27 @@ public:
 
     explicit Model( int size = 8);
 
-    Model(int width, int height);
+    //Model(int width, int height);
 
-
+    bool is_game_over() const;
+    //int other_player();
 
     // Takes in a Player and Position in which to attack and if
     // the posn is a hit it will remove the position from the ship's pset
     // and add that position to a hit_array
-    void remove_pos() const;
-
-    std::vector<Ship> other_player(std::vector<Ship>);
-
     void play_attack (std::vector<Ship>, Position);
 
+    bool advance_turn_();
+
+    std::vector<Ship> other_player(std::vector<Ship> player);
+
 private:
-    Position position_;
-    Player player_;
-    Ship s_;
+    std::vector<Ship> p1;
+    std::vector<Ship> p2;
+    std::vector<Ship> turn = p1;
+    std::vector<Position> hits_1;
+    std::vector<Position> hits_2;
 
 };
-
 
 
