@@ -40,6 +40,27 @@ Model::is_game_over() const
 }
 
 
+void
+Model::set_game_over() const
+{
+    for (Ship s: p1)
+    {
+        if (s.alive_)
+        {
+            return false;
+        }
+    }
+    for (Ship s : p2)
+    {
+        if (s.alive_)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 
 std::vector<Ship>
 Model::other_player(std::vector<Ship> player)
@@ -76,6 +97,16 @@ bool
 Model::advance_turn_()
 {
     turn = other_player(turn);
+
+    if (is_game_over())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+
 }
 
 void really_play_attack()

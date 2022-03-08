@@ -4,7 +4,6 @@
 #include "ship.hxx"
 #include "player.hxx"
 
-
 class Model
 {
 
