@@ -2,7 +2,7 @@
 
 #include <ge211.hxx>
 #include "ship.hxx"
-#include"player.hxx"
+#include "player.hxx"
 
 
 class Model
@@ -17,11 +17,23 @@ public:
 
     Model(int width, int height);
 
-    bool is_game_over() const;
-
-    bool advance_turn_() const;
 
 
+    // Takes in a Player and Position in which to attack and if
+    // the posn is a hit it will remove the position from the ship's pset
+    // and add that position to a hit_array
+    void remove_pos() const;
 
+    std::vector<Ship> other_player(std::vector<Ship>);
+
+    void play_attack (std::vector<Ship>, Position);
+
+private:
+    Position position_;
+    Player player_;
+    Ship s_;
 
 };
+
+
+

@@ -13,7 +13,7 @@ public:
 
 
 
-private:
+    bool hit_ship(Position) const;
 
     Position_set pset_;
     bool alive_;
@@ -23,3 +23,5 @@ private:
 
 
 };
+
+
