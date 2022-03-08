@@ -28,12 +28,18 @@ public:
 
     std::vector<Ship> other_player(std::vector<Ship> player);
 
+    std::vector<Position> other_hits(std::vector<Position> hit);
+
+    void set_game_over();
+
 private:
-    std::vector<Ship> p1;
-    std::vector<Ship> p2;
-    std::vector<Ship> turn = p1;
-    std::vector<Position> hits_1;
-    std::vector<Position> hits_2;
+    std::vector<Ship> p1_;
+    std::vector<Ship> p2_;
+    std::vector<Ship> turn_ = p1_;
+    std::vector<Position> hits_1_;
+    std::vector<Position> hits_2_;
+    std::vector<Position> turn_hits_ = hits_1_;
+    std::vector<Ship> winner_;
 
 };
 

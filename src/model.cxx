@@ -22,14 +22,14 @@ Model::Model(int width, int height)
 bool
 Model::is_game_over() const
 {
-    for (Ship s: p1)
+    for (Ship s: p1_)
     {
         if (s.alive_)
         {
             return false;
         }
     }
-    for (Ship s : p2)
+    for (Ship s : p2_)
     {
         if (s.alive_)
         {
@@ -41,23 +41,16 @@ Model::is_game_over() const
 
 
 void
-Model::set_game_over() const
+Model::set_game_over()
 {
-    for (Ship s: p1)
+    if(p1_.size() > p2_.size())
     {
-        if (s.alive_)
-        {
-            return false;
-        }
+        winner_ = p1_;
     }
-    for (Ship s : p2)
+    if(p1_.size() < p2_.size())
     {
-        if (s.alive_)
-        {
-            return false;
-        }
+        winner_ = p2_;
     }
-    return true;
 }
 
 
@@ -65,11 +58,11 @@ Model::set_game_over() const
 std::vector<Ship>
 Model::other_player(std::vector<Ship> player)
 {
-    if (player == p1){
-        return p2;
+    if (player == p1_){
+        return p2_;
     }
-    if (player == p2){
-        return p1;
+    if (player == p2_){
+        return p1_;
     }
     else{
         return player;
@@ -78,25 +71,28 @@ Model::other_player(std::vector<Ship> player)
 
 }
 
-void
-Model::play_attack(std::vector<Ship> player, Model::Position p)
+std::vector<Posn<int>>
+Model::other_hits(std::vector<Position> hit)
 {
-    for (Ship s : player)
+    if (hit == hits_1_)
     {
-        if (s.hit_ship(p))
-        {
-            s.pset_[p] = false;
-            //add position p to player's hit array
-
-
-        }
+        return hits_2_;
+    }
+    if(hit == hits_2_)
+    {
+        return hits_1_;
+    }
+    else
+    {
+        return hit;
     }
 }
 
 bool
 Model::advance_turn_()
 {
-    turn = other_player(turn);
+    turn_ = other_player(turn_);
+    turn_hits_ = other_hits(turn_hits_);
 
     if (is_game_over())
     {
@@ -109,7 +105,35 @@ Model::advance_turn_()
 
 }
 
-void really_play_attack()
+void
+Model::play_attack(std::vector<Ship> player, Model::Position p)
+{
+    for (Ship s : player)
+    {
+        if (s.hit_ship(p))
+        {
+            s.pset_[p] = false;
+            //add position p to player's hit array
+            other_hits(turn_hits_).push_back(p);
+        }
+    }
+    if(advance_turn_())
+    {
+        return;
+    }
+    if(advance_turn_())
+    {
+        return;
+    }
+    set_game_over();
+}
+
+
+
+
+
+
+
 
 
 
