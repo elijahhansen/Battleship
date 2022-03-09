@@ -53,7 +53,16 @@ Controller::initial_window_title() const
 void
 Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 {
-    //TODO
+    //if pos 1 = null
+    //pos 1 = __
+    //if pos 1 != null
+    //pos 2 = __
+    //call function to make pset
+    //clear
+
+    if(model_.play_at_pos(view_.screen_to_board(position))){
+        model_.play_attack(view_.screen_to_board(position));
+    }
 
 }
 

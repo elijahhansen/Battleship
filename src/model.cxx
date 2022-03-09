@@ -1,6 +1,5 @@
 #include "model.hxx"
-#include "player.hxx"
-#include <vector>
+
 
 
 
@@ -8,7 +7,7 @@ using namespace ge211;
 
 
 Model::Model(int size)
-// :Model(size, size)
+//    :Model(size, size)
 
 { }
 /*
@@ -19,6 +18,8 @@ Model::Model(int width, int height)
     return;
 }
 */
+
+
 bool
 Model::is_game_over() const
 {
@@ -88,11 +89,30 @@ Model::other_hits(std::vector<Position> hit)
     }
 }
 
+std::vector<Posn<int>>
+Model::other_misses(std::vector<Position> miss)
+{
+    if (miss == miss_1_)
+    {
+        return miss_2_;
+    }
+    if(miss == miss_2_)
+    {
+        return miss_1_;
+    }
+    else
+    {
+        return miss;
+    }
+}
+
+
 bool
 Model::advance_turn_()
 {
     turn_ = other_player(turn_);
     turn_hits_ = other_hits(turn_hits_);
+    turn_miss_ = other_misses(turn_miss_);
 
     if (is_game_over())
     {
@@ -105,6 +125,31 @@ Model::advance_turn_()
 
 }
 
+bool
+Model::play_at_pos(Position pos)
+{
+    if (other_player(turn_).empty())
+    {
+        return false;
+    }
+    for (Position p : other_hits(turn_hits_))
+    {
+        if (p == pos)
+        {
+            return false;
+        }
+    }
+    for (Position p : other_misses(turn_miss_))
+    {
+        if (p == pos)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void
 Model::play_attack(std::vector<Ship> player, Model::Position p)
 {
@@ -114,7 +159,11 @@ Model::play_attack(std::vector<Ship> player, Model::Position p)
         {
             s.pset_[p] = false;
             //add position p to player's hit array
-            other_hits(turn_hits_).push_back(p);
+            turn_hits_.push_back(p);
+        }
+        else
+        {
+            turn_miss_.push_back(p);
         }
     }
     if(advance_turn_())

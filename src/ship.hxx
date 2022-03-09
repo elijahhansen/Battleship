@@ -13,7 +13,12 @@ public:
 
 
 
-    bool hit_ship(Position) ;
+    bool hit_ship(Position);
+
+    bool is_ship_sunk(Ship);
+
+    friend bool operator ==(Ship, Ship);
+
 
     Position_set pset_;
     bool alive_ = true;

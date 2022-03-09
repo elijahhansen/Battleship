@@ -2,7 +2,8 @@
 
 #include <ge211.hxx>
 #include "ship.hxx"
-#include "player.hxx"
+#include <vector>
+
 
 class Model
 {
@@ -14,10 +15,37 @@ public:
 
     explicit Model( int size = 8);
 
-    //Model(int width, int height);
+    Model(int width, int height);
 
     bool is_game_over() const;
     //int other_player();
+
+    std::vector<Ship> turn() const
+    { return turn_; }
+
+    std::vector<Ship> winner() const
+    { return winner_; }
+
+    std::vector<Ship> p1() const
+    { return p1_; }
+
+    std::vector<Ship> p2() const
+    { return p2_; }
+
+    std::vector<Position> hits_1() const
+    { return hits_1_; }
+
+    std::vector<Position> hits_2() const
+    { return hits_2_; }
+
+    std::vector<Position> miss_1() const
+    { return miss_1_; }
+
+    std::vector<Position> miss_2() const
+    { return miss_2_; }
+
+
+    bool play_at_pos(Position);
 
     // Takes in a Player and Position in which to attack and if
     // the posn is a hit it will remove the position from the ship's pset
@@ -29,6 +57,8 @@ public:
     std::vector<Ship> other_player(std::vector<Ship> player);
 
     std::vector<Position> other_hits(std::vector<Position> hit);
+
+    std::vector<Position> other_misses(std::vector<Position>);
 
     void set_game_over();
 
