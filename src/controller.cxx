@@ -50,6 +50,12 @@ Controller::initial_window_title() const
 
 
 //check if ship is hit
+//:play_attack(std::vector<Ship> player, Model::Position p)
+
+
+//Position_set::Position_set(std::initializer_list<value_type> elems)
+//         : Position_set(elems.begin(), elems.end())
+// { }
 void
 Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 {
@@ -70,6 +76,7 @@ void
 Controller::on_mouse_move(ge211::Posn<int> position)
 {
     //TODO
+
 }
 
 //advance to next player/screen using space bar

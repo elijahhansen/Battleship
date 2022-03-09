@@ -50,7 +50,8 @@ public:
     // Takes in a Player and Position in which to attack and if
     // the posn is a hit it will remove the position from the ship's pset
     // and add that position to a hit_array
-    void play_attack (std::vector<Ship>, Position);
+    //void play_attack (std::vector<Ship>, Position);
+    void play_attack (Position);
 
     bool advance_turn_();
 
@@ -68,6 +69,9 @@ private:
     std::vector<Ship> turn_ = p1_;
     std::vector<Position> hits_1_;
     std::vector<Position> hits_2_;
+    std::vector<Position> miss_1_;
+    std::vector<Position> miss_2_;
+    std::vector<Position> turn_miss_ = miss_1_;
     std::vector<Position> turn_hits_ = hits_1_;
     std::vector<Ship> winner_;
 

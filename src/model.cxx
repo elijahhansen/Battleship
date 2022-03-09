@@ -69,8 +69,8 @@ Model::other_player(std::vector<Ship> player)
         return player;
     }
 
-
 }
+
 
 std::vector<Posn<int>>
 Model::other_hits(std::vector<Position> hit)
@@ -151,9 +151,11 @@ Model::play_at_pos(Position pos)
 
 
 void
-Model::play_attack(std::vector<Ship> player, Model::Position p)
+//Model::play_attack(/*std::vector<Ship> player,*/ Model::Position p)
+Model::play_attack(Model::Position p)
 {
-    for (Ship s : player)
+
+    for (Ship s : turn_)
     {
         if (s.hit_ship(p))
         {
@@ -176,6 +178,7 @@ Model::play_attack(std::vector<Ship> player, Model::Position p)
     }
     set_game_over();
 }
+
 
 
 

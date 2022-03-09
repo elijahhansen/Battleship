@@ -46,57 +46,66 @@ View::draw(ge211::Sprite_set& set)
             set.add_sprite(grid_sprite, board_to_screen({i, j}), 5);
             set.add_sprite(grid_sprite, board_to_screen({i + 8, j}), 5);
 
-            //if player 1 turn
-            //show their ships
-
-            //if player 2 turn
-            //show their ships
-
-            //if (i,j) == hit
-            //add sprite hit
-            set.add_sprite(hit_sprite,board_to_screen({0, 0}), 10);
-
-            //if (i,j) == miss
-            //add sprite miss
-            set.add_sprite(miss_sprite,board_to_screen({1, 1}), 10);
-
-            //if full ship revealed
-            //add sprite ship- where to add? and text sprite
-            //change a and b so it corresponds to where each ship is
-            //should we have already set ship sprites or iterate?
-            //could also write a helper function for add ship
-            for (int a = 0; a< 5; a++) {
-                for (int b = 0; b <1 ; b++) {
-                    set.add_sprite(aircraft_carrier,board_to_screen({a, b}),
-                                   10);
-                }
-            }
-            ge211::Text_sprite::Builder text_builder(sans72);
-            //replace with current player and ships
-            text_builder << "Player 1 has sunk player 2's aircraft";
-            destroy_text.reconfigure(text_builder);
-            set.add_sprite(destroy_text, {110,280}, 20);
-
-
-            //if turn is neither?, show temporary screen
-            //set.add_sprite(temporary,{0,0}, 15);
-            //set.add_sprite(turn_sprite,{80,100}, 20);
-
-
-            //if game over
-            //if p1 wins
-            //set.add_sprite(p1_winner,{160,280}, 20);
-            //if p2 wins
-            //set.add_sprite(p2_winner,{160,280}, 20);
-
-
-
-
-
-
-
         }
 
+    }
+    //if player 1 turn
+    //show their ships
+
+    //if player 2 turn
+    //show their ships
+
+    //if(model_[{i,j}] == Player::dark){
+
+    //}
+    //add sprite hit
+    for(Position p : model_.hits_1()){
+        set.add_sprite(hit_sprite, board_to_screen(p), 10);
+    }
+
+    for(Position p : model_.hits_2()){
+        set.add_sprite(hit_sprite, board_to_screen(p), 10);
+    }
+
+    for(Position p : model_.miss_1()){
+        set.add_sprite(miss_sprite, board_to_screen(p), 10);
+    }
+
+    for(Position p : model_.miss_2()){
+        set.add_sprite(miss_sprite, board_to_screen(p), 10);
+    }
+
+
+    //if full ship revealed
+    //add sprite ship- where to add? and text sprite
+    //change a and b so it corresponds to where each ship is
+    //should we have already set ship sprites or iterate?
+    //could also write a helper function for add ship
+    for (int a = 0; a< 5; a++) {
+        for (int b = 0; b <1 ; b++) {
+            set.add_sprite(aircraft_carrier,board_to_screen({a, b}),
+                           10);
+        }
+    }
+    ge211::Text_sprite::Builder text_builder(sans72);
+    //replace with current player and ships
+    text_builder << "Player 1 has sunk player 2's aircraft";
+    destroy_text.reconfigure(text_builder);
+    set.add_sprite(destroy_text, {110,280}, 20);
+
+
+    //if turn is neither?, show temporary screen
+    //set.add_sprite(temporary,{0,0}, 15);
+    //set.add_sprite(turn_sprite,{80,100}, 20);
+
+
+    if(model_.is_game_over()){
+        if(model_.winner() == model_.p1()){
+            set.add_sprite(p1_winner,{160,280}, 20);
+        }
+        if(model_.winner() == model_.p2()){
+            set.add_sprite(p2_winner,{160,280}, 20);
+        }
     }
 
 
