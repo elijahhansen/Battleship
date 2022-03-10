@@ -77,7 +77,7 @@ Model::other_player(std::vector<Ship>& player)
 std::vector<Ship>
 Model::other_player(bool turn)
 {
-    if (turn_){
+    if (turn){
         return p2_;
     }
     else {
