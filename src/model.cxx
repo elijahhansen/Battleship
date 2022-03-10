@@ -121,8 +121,8 @@ Model::advance_turn_()
     std::cout << p1_.size() << "\n";
     player_ = other_player(turn_);
     std::cout << player_.size() << "\n";
-    std::cout << other_player(turn_).size() << "\n";
-    //std::cout << p2_.size() << "\n";
+    //std::cout << other_player(turn_).size() << "\n";
+    std::cout << p2_.size() << "\n";
     turn_hits_ = other_hits(turn_);
     turn_miss_ = other_misses(turn_);
 
