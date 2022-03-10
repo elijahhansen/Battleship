@@ -1,5 +1,5 @@
 #include "controller.hxx"
-
+#include <iostream>
 
 
 Controller::Controller(ge211::Posn<int> pos_1, ge211::Posn<int> pos_2)
@@ -62,7 +62,82 @@ Controller::initial_window_title() const
 void
 Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 {
-    //if pos 1 = null
+    if (model_.is_opening_phase()) {
+        Ship s;
+        if (model_.player_.size() < 5) {
+
+            if (model_.v_vec.empty()) {
+                pos1 = view_.screen_to_board(position);
+                //model_.v_vec().push_back(pos1);
+                model_.v_vec.push_back(pos1);
+
+                return;
+            } else {
+                pos2 = view_.screen_to_board(position);
+                if (pos1.x == pos2.x) {
+                    while (pos2.y != pos1.y) {
+                        if (pos2.y > pos1.y) {
+                            pos1.y++;
+                            model_.v_vec.push_back({pos1.x, pos1.y});
+                        }
+                        if (pos2.y < pos1.y) {
+                            pos2.y++;
+                            model_.v_vec.push_back({pos1.x, pos2.y});
+                        }
+
+                    }
+                    model_.get_pset(model_.v_vec);
+
+                } else if (pos1.y == pos2.y) {
+                    while (pos2.x != pos1.x) {
+                        if (pos2.x > pos1.x) {
+                            pos1.x++;
+                            model_.v_vec.push_back({pos1.x, pos1.y});
+                        }
+                        if (pos2.x < pos1.x) {
+                            pos2.x++;
+                            model_.v_vec.push_back({pos2.x, pos1.y});
+                        }
+                        //model_.v_vec.push_back({pos1.x+i, pos1.y});
+
+                    }
+                    model_.get_pset(model_.v_vec);
+
+
+                }
+                //model_.v_vec.push_back(pos2);
+            //model_.turn().push_back(s);
+
+            }
+
+            s.pset_ = model_.p_test();
+            model_.player_.push_back(s);
+            //std::cout << model_.p1_.size();
+            //std::cout << model_.p2_.size();
+            model_.v_vec.clear();
+
+
+
+        }
+        /*
+        else{
+            std::cout << model_.p1_.size();
+            model_.advance_turn_();
+            std::cout << model_.p2_.size();
+
+        }
+*/
+        //std::cout << model_.turn_.size();
+        //std::cout << model_.p1_.size();
+        //std::cout << model_.p2_.size();
+        //model_.advance_turn_();
+        //model_.other_player(model_.turn_);
+        //std::cout << model_.other_player(model_.turn_).size();
+
+
+        //std::cout << model_.player_.size();
+
+    }
     //pos 1 = __
     //if pos 1 != null
     //pos 2 = __
@@ -75,6 +150,7 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
     }
 
 }
+
 
 void
 Controller::on_mouse_move(ge211::Posn<int> position)

@@ -44,6 +44,14 @@ public:
     std::vector<Position> miss_2() const
     { return miss_2_; }
 
+    std::vector<Position> v_vec;
+
+    Position_set p_test() const
+    { return pset_test;}
+
+    std::vector<Ship> player() const
+    { return player_; }
+
 
     bool play_at_pos(Position);
 
@@ -55,14 +63,29 @@ public:
 
     bool advance_turn_();
 
-    std::vector<Ship> other_player(std::vector<Ship> player);
+    std::vector<Ship> other_player(bool player);
 
     std::vector<Position> other_hits(bool hit);
 
     std::vector<Position> other_misses(bool miss);
 
     void set_game_over();
+    void get_pset(std::vector<Position> vec);
 
+    bool is_opening_phase();
+
+    std::vector<Ship> p1_;
+    std::vector<Ship> p2_;
+    //std::vector<Ship>& turn_ = p1_;
+
+    /*
+     * options for keeping track of turn
+     * using turn as a boolean indicator of whose turn it is
+     * using turn as a reference to p1 or p2
+     * using a player class
+      */
+
+    std::vector<Ship> & player_ = p1_;
 private:
     //std::vector<Ship> p1_;
     //std::vector<Ship> p2_;
@@ -74,6 +97,8 @@ private:
     std::vector<Position> & turn_miss_ = miss_1_;
     std::vector<Position> & turn_hits_ = hits_1_;
     std::vector<Ship> winner_;
+    std::vector<Position> v;
+    Position_set pset_test;
 
 };
 

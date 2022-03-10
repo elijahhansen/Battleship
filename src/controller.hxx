@@ -8,8 +8,9 @@
 class Controller : public ge211::Abstract_game
 {
 public:
-    Controller();
-
+    Controller(
+            ge211::Posn<int> pos_1,
+            ge211::Posn<int> pos_2);
 
     /*
         explicit Controller(int size = 8);
@@ -41,4 +42,6 @@ protected:
 private:
     Model model_;
     View view_;
+    ge211::Posn<int> pos1;
+    ge211::Posn<int> pos2;
 };

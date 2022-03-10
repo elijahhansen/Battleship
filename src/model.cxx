@@ -59,7 +59,7 @@ Model::set_game_over()
 
 /*
 std::vector<Ship>
-Model::other_player(std::vector<Ship> player)
+Model::other_player(std::vector<Ship>& player)
 {
     if (player == p1_){
         return p2_;
@@ -68,6 +68,7 @@ Model::other_player(std::vector<Ship> player)
         return p1_;
     }
     else{
+        //std::cout <<
         return player;
     }
 
@@ -153,7 +154,8 @@ Model::play_at_pos(Position pos)
     {
         return false;
     }
-    for (Position p : other_hits(turn_hits_))
+
+    for (Position p : other_hits(turn_))
     {
         if (p == pos)
         {
@@ -216,6 +218,32 @@ Model::play_attack(Position p)
     }
     set_game_over();
 }
+
+void
+Model::get_pset(std::vector<Position> vec)
+{
+    //v.push_back(p1);
+    //v.push_back(p2);
+    Position_set ship_pos_set(vec.begin(), vec.end());
+    pset_test = ship_pos_set;
+    //v_vec.clear();
+
+    std::cout << pset_test << "\n";
+    //return ship_pos_set;
+
+}
+/*
+void
+Model::start_game()
+{
+    player_ = p1_;
+    turn_hits_ = hits_1_;
+    turn_miss_ = miss_1_;
+}
+*/
+
+
+
 
 
 

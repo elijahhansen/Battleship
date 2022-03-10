@@ -75,7 +75,25 @@ View::draw(ge211::Sprite_set& set)
         set.add_sprite(miss_sprite, board_to_screen(p), 10);
     }
 
+    //for(Position p : model_.p_test()){
+    //   set.add_sprite(aircraft_carrier,board_to_screen(p),20);
+    //}
 
+    for(Ship s : model_.player_){
+        for(Position p : s.pset_){
+            set.add_sprite(aircraft_carrier,board_to_screen(p),
+                           20);
+        }
+    }
+
+
+/*
+    for(Ship s : model_.p2_){
+        for(Position p : s.pset_){
+            set.add_sprite(aircraft_carrier,board_to_screen(p),20);
+        }
+    }
+*/
     //if full ship revealed
     //add sprite ship- where to add? and text sprite
     //change a and b so it corresponds to where each ship is
