@@ -13,9 +13,8 @@ public:
     using Dimensions = Ship::Dimensions;
     using Position = Ship::Position;
 
-    explicit Model( int size = 8);
+    Model();
 
-    Model(int width, int height);
 
     bool is_game_over() const;
     //int other_player();
@@ -85,11 +84,11 @@ public:
      * using a player class
       */
 
-    std::vector<Ship> & player_ = p1_;
+    std::vector<Ship> & player_;
 private:
     //std::vector<Ship> p1_;
     //std::vector<Ship> p2_;
-    bool turn_ = true;
+    bool turn_;
     std::vector<Position> hits_1_;
     std::vector<Position> hits_2_;
     std::vector<Position> miss_1_;

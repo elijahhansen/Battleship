@@ -7,11 +7,13 @@
 using namespace ge211;
 
 
-Model::Model(int size)
-    //:Model(size, size)
+Model::Model()
+    :player_(p1_),
+    turn_(true)
 
 
-{ }
+{
+}
 /*
 Model::Model(int width, int height)
         : Model({width, height})
