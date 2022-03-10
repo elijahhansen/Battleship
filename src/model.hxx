@@ -20,8 +20,8 @@ public:
     bool is_game_over() const;
     //int other_player();
 
-    std::vector<Ship> turn() const
-    { return turn_; }
+    //std::vector<Ship> turn() const
+    //{ return turn_; }
 
     std::vector<Ship> winner() const
     { return winner_; }
@@ -57,22 +57,22 @@ public:
 
     std::vector<Ship> other_player(std::vector<Ship> player);
 
-    std::vector<Position> other_hits(std::vector<Position> hit);
+    std::vector<Position> other_hits(bool hit);
 
-    std::vector<Position> other_misses(std::vector<Position>);
+    std::vector<Position> other_misses(bool miss);
 
     void set_game_over();
 
 private:
-    std::vector<Ship> p1_;
-    std::vector<Ship> p2_;
-    std::vector<Ship> turn_ = p1_;
+    //std::vector<Ship> p1_;
+    //std::vector<Ship> p2_;
+    bool turn_ = true;
     std::vector<Position> hits_1_;
     std::vector<Position> hits_2_;
     std::vector<Position> miss_1_;
     std::vector<Position> miss_2_;
-    std::vector<Position> turn_miss_ = miss_1_;
-    std::vector<Position> turn_hits_ = hits_1_;
+    std::vector<Position> & turn_miss_ = miss_1_;
+    std::vector<Position> & turn_hits_ = hits_1_;
     std::vector<Ship> winner_;
 
 };

@@ -1,8 +1,11 @@
 #include "controller.hxx"
 
 
-Controller::Controller()
-        : view_(model_)
+
+Controller::Controller(ge211::Posn<int> pos_1, ge211::Posn<int> pos_2)
+        : view_(model_),
+        pos1(pos_1),
+        pos2(pos_2)
 { }
 
 
@@ -66,7 +69,8 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
     //call function to make pset
     //clear
 
-    if(model_.play_at_pos(view_.screen_to_board(position))){
+    if(model_.play_at_pos(view_.screen_to_board(position)) && !model_.is_opening_phase()){
+        std::cout << "attack";
         model_.play_attack(view_.screen_to_board(position));
     }
 
@@ -86,7 +90,12 @@ Controller::on_key(ge211::Key key)
 
     if (key == ge211::Key::code(' ')) {
         // switch to other player
+        model_.advance_turn_();
     }
 
 
+
 }
+
+
+

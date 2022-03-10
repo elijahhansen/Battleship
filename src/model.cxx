@@ -1,4 +1,5 @@
 #include "model.hxx"
+#include <iostream>
 
 
 
@@ -7,7 +8,8 @@ using namespace ge211;
 
 
 Model::Model(int size)
-//    :Model(size, size)
+    //:Model(size, size)
+
 
 { }
 /*
@@ -44,18 +46,18 @@ Model::is_game_over() const
 void
 Model::set_game_over()
 {
-    if(p1_.size() > p2_.size())
-    {
-        winner_ = p1_;
-    }
-    if(p1_.size() < p2_.size())
+    if(p1_.empty())
     {
         winner_ = p2_;
+    }
+    if(p2_.empty())
+    {
+        winner_ = p1_;
     }
 }
 
 
-
+/*
 std::vector<Ship>
 Model::other_player(std::vector<Ship> player)
 {
@@ -70,39 +72,43 @@ Model::other_player(std::vector<Ship> player)
     }
 
 }
+*/
+std::vector<Ship>
+Model::other_player(bool turn)
+{
+    if (turn_){
+        return p2_;
+    }
+    else {
+        return p1_;
+    }
+
+}
 
 
 std::vector<Posn<int>>
-Model::other_hits(std::vector<Position> hit)
+Model::other_hits(bool hit)
 {
-    if (hit == hits_1_)
+    if (hit)
     {
         return hits_2_;
     }
-    if(hit == hits_2_)
-    {
-        return hits_1_;
-    }
     else
     {
-        return hit;
+        return hits_1_;
     }
 }
 
 std::vector<Posn<int>>
-Model::other_misses(std::vector<Position> miss)
+Model::other_misses(bool miss)
 {
-    if (miss == miss_1_)
+    if (miss)
     {
         return miss_2_;
     }
-    if(miss == miss_2_)
-    {
-        return miss_1_;
-    }
     else
     {
-        return miss;
+        return miss_1_;
     }
 }
 
@@ -110,9 +116,24 @@ Model::other_misses(std::vector<Position> miss)
 bool
 Model::advance_turn_()
 {
-    turn_ = other_player(turn_);
-    turn_hits_ = other_hits(turn_hits_);
-    turn_miss_ = other_misses(turn_miss_);
+    std::cout << player_.size() << "\n";;
+    std::cout << p1_.size() << "\n";
+    player_ = other_player(turn_);
+    std::cout << player_.size() << "\n";
+    std::cout << other_player(turn_).size() << "\n";
+    //std::cout << p2_.size() << "\n";
+    turn_hits_ = other_hits(turn_);
+    turn_miss_ = other_misses(turn_);
+
+    if(turn_)
+    {
+        turn_ = false;
+    }
+    else
+    {
+        turn_ = true;
+    }
+
 
     if (is_game_over())
     {
@@ -139,7 +160,7 @@ Model::play_at_pos(Position pos)
             return false;
         }
     }
-    for (Position p : other_misses(turn_miss_))
+    for (Position p : other_misses(turn_))
     {
         if (p == pos)
         {
@@ -150,12 +171,29 @@ Model::play_at_pos(Position pos)
 }
 
 
+bool
+Model::is_opening_phase()
+{
+    if (player_.size() <5 && other_player(turn_).size() <5 && turn_hits_
+            .empty() && other_hits(turn_).empty() && turn_miss_.empty() &&
+        other_misses(turn_).empty())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+
 void
 //Model::play_attack(/*std::vector<Ship> player,*/ Model::Position p)
-Model::play_attack(Model::Position p)
+Model::play_attack(Position p)
 {
 
-    for (Ship s : turn_)
+    for (Ship s : other_player(turn_))
     {
         if (s.hit_ship(p))
         {

@@ -81,12 +81,14 @@ View::draw(ge211::Sprite_set& set)
     //change a and b so it corresponds to where each ship is
     //should we have already set ship sprites or iterate?
     //could also write a helper function for add ship
-    for (int a = 0; a< 5; a++) {
+    /*
+     * for (int a = 0; a< 5; a++) {
         for (int b = 0; b <1 ; b++) {
             set.add_sprite(aircraft_carrier,board_to_screen({a, b}),
                            10);
         }
     }
+     */
     ge211::Text_sprite::Builder text_builder(sans72);
     //replace with current player and ships
     text_builder << "Player 1 has sunk player 2's aircraft";
