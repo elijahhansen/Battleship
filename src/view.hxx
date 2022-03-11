@@ -59,6 +59,9 @@ private:
 
     ge211::Font sans72{"sans.ttf", 15};
 
+    ge211::Text_sprite turn_player1_sprite{"Player 1", sans72};
+    ge211::Text_sprite turn_player2_sprite{"Player 2", sans72};
+
     ge211::Text_sprite turn_sprite{"Click space bar to proceed to next player",
                                    sans72};
     ge211::Text_sprite p1_winner{"Player 1 is the winner!",

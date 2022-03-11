@@ -39,6 +39,7 @@ void
 View::draw(ge211::Sprite_set& set)
 {
 
+
     // It will really iterate over the 2D array
     for (int i = 0; i< 7; i++) {
         for (int j = 0; j < 7; j++) {
@@ -69,6 +70,8 @@ View::draw(ge211::Sprite_set& set)
     //}
     if (model_.turn_)
     {
+        set.add_sprite(turn_player1_sprite, {400, 250});
+        set.add_sprite(turn_sprite, {100, 380});
         for (Ship s: model_.p2_)
         {
                 if (s == model_.p2_[0])
@@ -151,6 +154,9 @@ View::draw(ge211::Sprite_set& set)
     }
 
     else if(!model_.turn_){
+
+        set.add_sprite(turn_player2_sprite, {400, 250});
+        set.add_sprite(turn_sprite, {100, 380});
 
         for (Ship s: model_.p1_)
         {
