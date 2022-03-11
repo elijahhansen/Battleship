@@ -23,8 +23,6 @@ public:
     //std::vector<Ship> turn() const
     //{ return turn_; }
 
-    bool  winner() const
-    { return winner_; }
 
     std::vector<Ship> p1() const
     { return p1_; }
@@ -77,6 +75,7 @@ public:
 
     std::vector<Ship> p1_;
     std::vector<Ship> p2_;
+    bool winner_;
 
     //std::vector<Ship>& turn_ = p1_;
 
@@ -97,7 +96,7 @@ private:
     std::vector<Position> miss_2_;
     std::vector<Position> & turn_miss_ = miss_1_;
     std::vector<Position> & turn_hits_ = hits_1_;
-    bool winner_;
+
     std::vector<Position> v;
     Position_set pset_test;
     //Player turn_player  = Player::p1;

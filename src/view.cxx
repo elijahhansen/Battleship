@@ -320,11 +320,11 @@ View::draw(ge211::Sprite_set& set)
 
 
     if(model_.is_game_over() && !model_.is_opening_phase()){
-        if(model_.winner()){
-            set.add_sprite(p1_winner,{160,280}, 20);
+        if(model_.winner_){
+            set.add_sprite(p1_winner,{160,400}, 30);
         }
-        else if(!model_.winner()){
-            set.add_sprite(p2_winner,{160,280}, 20);
+        else if(!model_.winner_){
+            set.add_sprite(p2_winner,{160,400}, 30);
         }
     }
 

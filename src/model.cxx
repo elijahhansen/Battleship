@@ -206,6 +206,10 @@ Model::play_attack(Position p)
                 //add position p to player's hit array
                 hits_1_.push_back(p);
                 std::cout << hits_1_.size() << "\n";
+                if(s.is_ship_sunk())
+                {
+                    s.alive_ = false;
+                }
                 return;
             }
         }
@@ -233,6 +237,10 @@ Model::play_attack(Position p)
                 s.pset_[p] = false;
                 //add position p to player's hit array
                 hits_2_.push_back(p);
+                if (s.is_ship_sunk())
+                {
+                    s.alive_ = false;
+                }
                 return;
             }
         }
