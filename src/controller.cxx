@@ -65,29 +65,29 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 
     if (model_.is_opening_phase()) {
         Ship s;
-        if (model_.player_.size() < 5) {
+        if(model_.turn_) {
+            if (model_.p1_.size() < 5) {
 
-            if (model_.v_vec.empty()) {
-                pos1 = view_.screen_to_board(position);
-                //model_.v_vec().push_back(pos1);
-                model_.v_vec.push_back(pos1);
+                if (model_.v_vec.empty()) {
+                    pos1 = view_.screen_to_board(position);
+                    //model_.v_vec().push_back(pos1);
+                    model_.v_vec.push_back(pos1);
 
-                return;
-            } else {
-                pos2 = view_.screen_to_board(position);
-                if (pos1.x == pos2.x) {
-                    while (pos2.y != pos1.y) {
-                        if (pos2.y > pos1.y) {
-                            pos1.y++;
-                            model_.v_vec.push_back({pos1.x, pos1.y});
+                    return;
+                } else {
+                    pos2 = view_.screen_to_board(position);
+                    if (pos1.x == pos2.x) {
+                        while (pos2.y != pos1.y) {
+                            if (pos2.y > pos1.y) {
+                                pos1.y++;
+                                model_.v_vec.push_back({pos1.x, pos1.y});
+                            } else if (pos2.y < pos1.y) {
+                                model_.v_vec.push_back({pos1.x, pos2.y});
+                                pos2.y++;
+                            }
+
                         }
-                        if (pos2.y < pos1.y) {
-                            pos2.y++;
-                            model_.v_vec.push_back({pos1.x, pos2.y});
-                        }
-
-                    }
-                    model_.get_pset(model_.v_vec);
+                        model_.get_pset(model_.v_vec);
 
                     } else if (pos1.y == pos2.y) {
                         while (pos2.x != pos1.x) {
@@ -100,25 +100,77 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
                             }
                             //model_.v_vec.push_back({pos1.x+i, pos1.y});
 
-                    }
-                    model_.get_pset(model_.v_vec);
+                        }
+                        model_.get_pset(model_.v_vec);
 
+                    }
+                    //model_.v_vec.push_back(pos2);
+                    //model_.turn().push_back(s);
 
                 }
-                //model_.v_vec.push_back(pos2);
-            //model_.turn().push_back(s);
+
+                s.pset_ = model_.p_test();
+                model_.p1_.push_back(s);
+                //std::cout << model_.p1_.size();
+                //std::cout << model_.p2_.size();
+                model_.v_vec.clear();
 
             }
-
-            s.pset_ = model_.p_test();
-            model_.player_.push_back(s);
-            //std::cout << model_.p1_.size();
-            //std::cout << model_.p2_.size();
-            model_.v_vec.clear();
-
-
-
         }
+        if (!model_.turn_){
+            //std::cout << "2";
+            if (model_.p2_.size() < 5) {
+
+                if (model_.v_vec.empty()) {
+                    pos1 = view_.screen_to_board(position);
+                    //model_.v_vec().push_back(pos1);
+                    model_.v_vec.push_back(pos1);
+
+                    return;
+                } else {
+                    pos2 = view_.screen_to_board(position);
+                    if (pos1.x == pos2.x) {
+                        while (pos2.y != pos1.y) {
+                            if (pos2.y > pos1.y) {
+                                pos1.y++;
+                                model_.v_vec.push_back({pos1.x, pos1.y});
+                            } else if (pos2.y < pos1.y) {
+                                model_.v_vec.push_back({pos1.x, pos2.y});
+                                pos2.y++;
+                            }
+
+                        }
+                        model_.get_pset(model_.v_vec);
+
+                    } else if (pos1.y == pos2.y) {
+                        while (pos2.x != pos1.x) {
+                            if (pos2.x > pos1.x) {
+                                pos1.x++;
+                                model_.v_vec.push_back({pos1.x, pos1.y});
+                            } else if (pos2.x < pos1.x) {
+                                model_.v_vec.push_back({pos2.x, pos1.y});
+                                pos2.x++;
+                            }
+                            //model_.v_vec.push_back({pos1.x+i, pos1.y});
+
+                        }
+                        model_.get_pset(model_.v_vec);
+
+                    }
+                    //model_.v_vec.push_back(pos2);
+                    //model_.turn().push_back(s);
+
+                }
+
+                s.pset_ = model_.p_test();
+                model_.p2_.push_back(s);
+                //std::cout << model_.p1_.size();
+                //std::cout << model_.p2_.size();
+                model_.v_vec.clear();
+
+            }
+        }
+
         /*
         else{
             std::cout << model_.p1_.size();

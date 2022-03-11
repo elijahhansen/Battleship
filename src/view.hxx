@@ -67,6 +67,15 @@ private:
                                  sans72};
     ge211::Text_sprite destroy_text;
 
+    ge211::Text_sprite grid_0{"0", sans72};
+    ge211::Text_sprite grid_1{"1", sans72};
+    ge211::Text_sprite grid_2{"2", sans72};
+    ge211::Text_sprite grid_3{"3", sans72};
+    ge211::Text_sprite grid_4{"4", sans72};
+    ge211::Text_sprite grid_5{"5", sans72};
+    ge211::Text_sprite grid_6{"6", sans72};
+
+
 
     //ge211::Text_sprite destroyed_text{"Click space bar to proceed to next "
     //                               "player",

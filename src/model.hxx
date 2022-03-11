@@ -5,6 +5,7 @@
 #include <vector>
 
 
+
 class Model
 {
 
@@ -76,6 +77,7 @@ public:
 
     std::vector<Ship> p1_;
     std::vector<Ship> p2_;
+
     //std::vector<Ship>& turn_ = p1_;
 
     /*
@@ -84,8 +86,8 @@ public:
      * using turn as a reference to p1 or p2
      * using a player class
       */
-
-    std::vector<Ship> & player_;
+    bool turn_;
+    //std::vector<Ship> & player_;
 private:
     //std::vector<Ship> p1_;
     //std::vector<Ship> p2_;
@@ -98,6 +100,7 @@ private:
     bool winner_;
     std::vector<Position> v;
     Position_set pset_test;
+    //Player turn_player  = Player::p1;
 
 };
 

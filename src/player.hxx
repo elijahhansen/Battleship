@@ -2,6 +2,18 @@
 
 #include "ship.hxx"
 
+
+/*
+enum class Player
+{
+    p1,
+    p2,
+};
+
+// Returns the other player.
+Player other_player(Player);
+
+
 class Player
 {
 
@@ -21,4 +33,4 @@ public:
 
 };
 
-
+*/

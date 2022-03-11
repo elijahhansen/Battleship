@@ -8,7 +8,7 @@ using namespace ge211;
 
 
 Model::Model()
-    :player_(p1_),
+    ://player_(p1_),
     turn_(true)
 
 
@@ -28,6 +28,7 @@ Model::Model(int width, int height)
 bool
 Model::is_game_over() const
 {
+
     for (Ship s: p1_)
     {
         if (s.alive_)
@@ -60,23 +61,7 @@ Model::set_game_over()
 }
 
 
-/*
-std::vector<Ship>
-Model::other_player(std::vector<Ship>& player)
-{
-    if (player == p1_){
-        return p2_;
-    }
-    if (player == p2_){
-        return p1_;
-    }
-    else{
-        //std::cout <<
-        return player;
-    }
 
-}
-*/
 std::vector<Ship>
 Model::other_player(bool turn)
 {
@@ -88,6 +73,7 @@ Model::other_player(bool turn)
     }
 
 }
+
 
 
 std::vector<Posn<int>>
@@ -120,14 +106,6 @@ Model::other_misses(bool miss)
 bool
 Model::advance_turn_()
 {
-    std::cout << player_.size() << "\n";;
-    std::cout << p1_.size() << "\n";
-    player_ = other_player(turn_);
-    std::cout << player_.size() << "\n";
-    //std::cout << other_player(turn_).size() << "\n";
-    std::cout << p2_.size() << "\n";
-    turn_hits_ = other_hits(turn_);
-    turn_miss_ = other_misses(turn_);
 
     if(turn_)
     {
@@ -153,24 +131,47 @@ Model::advance_turn_()
 bool
 Model::play_at_pos(Position pos)
 {
-    if (other_player(turn_).empty())
-    {
-        return false;
-    }
+    if (turn_){
+        if (p2_.empty()){
+            return false;
+        }
+        for (Position p : hits_1_)
+        {
+            if (p == pos)
+            {
+                return false;
+            }
+        }
+        for (Position p : miss_1_)
+        {
+            if (p == pos)
+            {
+                return false;
+            }
+        }
+        return true;
 
-    for (Position p : other_hits(turn_))
-    {
-        if (p == pos)
-        {
-            return false;
-        }
     }
-    for (Position p : other_misses(turn_))
-    {
-        if (p == pos)
-        {
+    else{
+        if (p1_.empty()){
             return false;
         }
+        for (Position p : hits_2_)
+        {
+            if (p == pos)
+            {
+                return false;
+            }
+        }
+        for (Position p : miss_2_)
+        {
+            if (p == pos)
+            {
+                return false;
+            }
+        }
+        //return true;
+
     }
     return true;
 }
@@ -179,9 +180,10 @@ Model::play_at_pos(Position pos)
 bool
 Model::is_opening_phase() const
 {
-    if (player_.size() <5 && other_player(turn_).size() <5 && turn_hits_
-            .empty() && other_hits(turn_).empty() && turn_miss_.empty() &&
-        other_misses(turn_).empty())
+    if ((p1_.size() <5 || p2_.size() <5) && hits_1_.empty() && hits_2_.empty
+    () &&
+    miss_1_.empty() &&
+        miss_2_.empty())
     {
         return true;
     }

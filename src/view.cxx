@@ -26,7 +26,7 @@ View::View(Model const& model)
           miss_sprite((grid_size)/2 -3, white_color),
           grid_sprite({grid_size-5, grid_size-5}, board_color),
         //back_drop({grid_size*7, grid_size*7}, black_color),
-          temporary({grid_size*15, grid_size*10}, black_color),
+          temporary({grid_size*16, grid_size*12}, black_color),
           destroy_text()
 
 { }
@@ -38,13 +38,14 @@ View::View(Model const& model)
 void
 View::draw(ge211::Sprite_set& set)
 {
+
     // It will really iterate over the 2D array
     for (int i = 0; i< 7; i++) {
         for (int j = 0; j < 7; j++) {
             //set.add_sprite(back_drop,{0,0}, 0);
             //set.add_sprite(back_drop,{grid_size * 8,0}, 0);
             set.add_sprite(grid_sprite, board_to_screen({i, j}), 5);
-            set.add_sprite(grid_sprite, board_to_screen({i + 8, j}), 5);
+            set.add_sprite(grid_sprite, board_to_screen({i + 9, j}), 5);
 
         }
 
@@ -59,21 +60,9 @@ View::draw(ge211::Sprite_set& set)
 
     //}
     //add sprite hit
-    for(Position p : model_.hits_1()){
-        set.add_sprite(hit_sprite, board_to_screen(p), 10);
-    }
 
-    for(Position p : model_.hits_2()){
-        set.add_sprite(hit_sprite, board_to_screen(p), 10);
-    }
 
-    for(Position p : model_.miss_1()){
-        set.add_sprite(miss_sprite, board_to_screen(p), 10);
-    }
 
-    for(Position p : model_.miss_2()){
-        set.add_sprite(miss_sprite, board_to_screen(p), 10);
-    }
 
     //for(Position p : model_.p_test()){
     //   set.add_sprite(aircraft_carrier,board_to_screen(p),20);
@@ -275,9 +264,54 @@ View::draw(ge211::Sprite_set& set)
     /*
     ge211::Text_sprite::Builder text_builder(sans72);
     //replace with current player and ships
+
     text_builder << "Player 1 has sunk player 2's aircraft";
     destroy_text.reconfigure(text_builder);
     set.add_sprite(destroy_text, {110,280}, 20);
+
+    ge211::Text_sprite::Builder text_builder2(sans72);
+    ge211::Text_sprite::Builder text_builder3(sans72);
+    //replace with current player and ships
+*/
+
+
+    for (int i = 0; i< 7; i++) {
+        if (i == 0) {
+            set.add_sprite(grid_0, board_to_screen({i, 7}), 20);
+        } else if (i == 1) {
+            set.add_sprite(grid_1, board_to_screen({i, 7}), 20);
+        } else if (i == 2) {
+            set.add_sprite(grid_2, board_to_screen({i, 7}), 20);
+        } else if (i == 3) {
+            set.add_sprite(grid_3, board_to_screen({i, 7}), 20);
+        } else if (i == 4) {
+            set.add_sprite(grid_4, board_to_screen({i, 7}), 20);
+        } else if (i == 5) {
+            set.add_sprite(grid_5, board_to_screen({i, 7}), 20);
+        } else if (i == 6) {
+            set.add_sprite(grid_6, board_to_screen({i, 7}), 20);
+        }
+    }
+    for (int i = 0; i< 7; i++) {
+        if (i == 0) {
+            set.add_sprite(grid_0, board_to_screen({7, i}), 20);
+        } else if (i == 1) {
+            set.add_sprite(grid_1, board_to_screen({7, i}), 20);
+        } else if (i == 2) {
+            set.add_sprite(grid_2, board_to_screen({7, i}), 20);
+        } else if (i == 3) {
+            set.add_sprite(grid_3, board_to_screen({7, i}), 20);
+        } else if (i == 4) {
+            set.add_sprite(grid_4, board_to_screen({7, i}), 20);
+        } else if (i == 5) {
+            set.add_sprite(grid_5, board_to_screen({7, i}), 20);
+        } else if (i == 6) {
+            set.add_sprite(grid_6, board_to_screen({7, i}), 20);
+        }
+    }
+
+
+
 
 
     //if turn is neither?, show temporary screen
@@ -285,8 +319,8 @@ View::draw(ge211::Sprite_set& set)
     //set.add_sprite(turn_sprite,{80,100}, 20);
 
 
-    if(model_.is_game_over()){
-        if(model_.winner() == model_.p1()){
+    if(model_.is_game_over() && !model_.is_opening_phase()){
+        if(model_.winner()){
             set.add_sprite(p1_winner,{160,280}, 20);
         }
         else if(!model_.winner()){
@@ -301,7 +335,7 @@ View::draw(ge211::Sprite_set& set)
 View::Dimensions
 View::initial_window_dimensions() const
 {
-    return {grid_size * 15, grid_size * 10};
+    return {grid_size * 16, grid_size * 12};
 
 }
 
