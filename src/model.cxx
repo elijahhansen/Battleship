@@ -23,7 +23,8 @@ Model::Model(int width, int height)
 }
 */
 
-
+//testing
+//testing
 bool
 Model::is_game_over() const
 {
@@ -50,11 +51,11 @@ Model::set_game_over()
 {
     if(p1_.empty())
     {
-        winner_ = p2_;
+        winner_ = true;
     }
     if(p2_.empty())
     {
-        winner_ = p1_;
+        winner_ = false;
     }
 }
 
@@ -176,7 +177,7 @@ Model::play_at_pos(Position pos)
 
 
 bool
-Model::is_opening_phase()
+Model::is_opening_phase() const
 {
     if (player_.size() <5 && other_player(turn_).size() <5 && turn_hits_
             .empty() && other_hits(turn_).empty() && turn_miss_.empty() &&
@@ -196,30 +197,59 @@ void
 //Model::play_attack(/*std::vector<Ship> player,*/ Model::Position p)
 Model::play_attack(Position p)
 {
+    if (turn_) {
+        for (Ship& s: p2_) {
+            if (s.hit_ship(p)) {
+                s.pset_[p] = false;
+                //add position p to player's hit array
+                hits_1_.push_back(p);
+                std::cout << hits_1_.size() << "\n";
+                return;
+            }
+        }
+        miss_1_.push_back(p);
+        std::cout << miss_1_.size() << "\n";
+        return;
 
-    for (Ship s : other_player(turn_))
-    {
-        if (s.hit_ship(p))
-        {
-            s.pset_[p] = false;
-            //add position p to player's hit array
-            turn_hits_.push_back(p);
+        /*
+        if (advance_turn_()) {
+            return;
         }
-        else
-        {
-            turn_miss_.push_back(p);
+        if (advance_turn_()) {
+            return;
+        }*/
+        if (is_game_over()) {
+            set_game_over();
         }
     }
-    if(advance_turn_())
+
+    if(!turn_)
     {
-        return;
+        for (Ship & s: p1_)
+        {
+            if (s.hit_ship(p)) {
+                s.pset_[p] = false;
+                //add position p to player's hit array
+                hits_2_.push_back(p);
+                return;
+            }
+        }
+
+        miss_2_.push_back(p);
+        if (is_game_over()){
+            set_game_over();
+        }
+
+
     }
-    if(advance_turn_())
-    {
-        return;
-    }
-    set_game_over();
 }
+
+
+
+
+
+
+
 
 void
 Model::get_pset(std::vector<Position> vec)
@@ -230,7 +260,7 @@ Model::get_pset(std::vector<Position> vec)
     pset_test = ship_pos_set;
     //v_vec.clear();
 
-    std::cout << pset_test << "\n";
+    //std::cout << pset_test << "\n";
     //return ship_pos_set;
 
 }

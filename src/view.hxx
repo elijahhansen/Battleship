@@ -57,7 +57,7 @@ private:
     ge211::Rectangle_sprite const temporary;
 
 
-    ge211::Font sans72{"sans.ttf", 20};
+    ge211::Font sans72{"sans.ttf", 15};
 
     ge211::Text_sprite turn_sprite{"Click space bar to proceed to next player",
                                    sans72};

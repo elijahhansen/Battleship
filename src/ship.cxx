@@ -20,9 +20,9 @@ Ship::hit_ship(Position p)
 }
 
 bool
-Ship::is_ship_sunk(Ship s)
+Ship::is_ship_sunk()
 {
-    if(s.pset_.empty())
+    if(pset_.empty())
     {
         return true;
     }

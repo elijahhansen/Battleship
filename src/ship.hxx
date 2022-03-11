@@ -15,7 +15,7 @@ public:
 
     bool hit_ship(Position);
 
-    bool is_ship_sunk(Ship);
+    bool is_ship_sunk();
 
     friend bool operator ==(Ship, Ship);
 

@@ -78,13 +78,178 @@ View::draw(ge211::Sprite_set& set)
     //for(Position p : model_.p_test()){
     //   set.add_sprite(aircraft_carrier,board_to_screen(p),20);
     //}
+    if (model_.turn_)
+    {
+        for (Ship s: model_.p2_)
+        {
+                if (s == model_.p2_[0])
+                {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
 
-    for(Ship s : model_.player_){
-        for(Position p : s.pset_){
-            set.add_sprite(aircraft_carrier,board_to_screen(p),
-                           20);
+                    text_builder << "Player 1 has Sunk Player 2's Aircraft "
+                                    "Carrier!";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 280}, 20);
+                    }
+                }
+                if (s == model_.p2_[1])
+                {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 1 has Sunk Player 2's Battleship! ";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 295}, 20);
+                    }
+                }
+                if (s == model_.p2_[2]) {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 1 has sunk player 2's Cruiser!";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 310}, 20);
+                    }
+                }
+                if (s == model_.p2_[3])
+                {
+                    if(s.is_ship_sunk())
+                    {
+                    ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 1 has sunk player 2's Submarine! ";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 325}, 20);
+                    }
+                }
+                if (s == model_.p2_[4]) {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 1 has sunk player 2's Destroyer!";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 340}, 20);
+                    }
+                }
+            }
+
+        for (Ship s: model_.p1_) {
+
+            for (Position p: s.pset_) {
+                set.add_sprite(aircraft_carrier, board_to_screen({p.x+9,p.y}),
+                               20);
+            }
+        }
+        for(Position p : model_.hits_1()){
+            set.add_sprite(hit_sprite, board_to_screen(p), 10);
+        }
+        for(Position p : model_.hits_2()){
+            set.add_sprite(hit_sprite, board_to_screen({p.x+9, p.y}), 25);
+        }
+        for(Position p : model_.miss_1()){
+            set.add_sprite(miss_sprite, board_to_screen(p), 10);
         }
     }
+
+    else if(!model_.turn_){
+
+        for (Ship s: model_.p1_)
+        {
+            if(s.is_ship_sunk())
+            {
+                if (s == model_.p1_[0]) {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 2 has Sunk Player 1's Aircraft "
+                                    "Carrier!";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 280}, 20);
+                    }
+                }
+                if (s == model_.p1_[1]) {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 2 has Sunk Player 1's Battleship! ";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 295}, 20);
+                    }
+                }
+                if (s == model_.p1_[2])
+                {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 2 has sunk player 1's Cruiser!";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 310}, 20);
+                    }
+                }
+                if (s == model_.p1_[3]) {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 2 has sunk player 1's Submarine! ";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 325}, 20);
+                    }
+                }
+                if (s == model_.p1_[4]) {
+                    if (s.is_ship_sunk())
+                    {
+                        ge211::Text_sprite::Builder text_builder(sans72);
+                    //replace with current player and ships
+
+                    text_builder << "Player 2 has sunk player 1's Destroyer!";
+                    destroy_text.reconfigure(text_builder);
+                    set.add_sprite(destroy_text, {110, 340}, 20);
+                    }
+                }
+            }
+        }
+
+        for(Ship s : model_.p2_){
+            for(Position p : s.pset_){
+                set.add_sprite(aircraft_carrier,board_to_screen({p.x+9, p.y}),
+                               20);
+            }
+            }
+
+
+        for(Position p : model_.hits_2()){
+            set.add_sprite(hit_sprite, board_to_screen(p), 10);
+        }
+        for(Position p : model_.hits_1()){
+            set.add_sprite(hit_sprite, board_to_screen({p.x+9,p.y}), 25);
+        }
+
+        for(Position p : model_.miss_2()){
+            set.add_sprite(miss_sprite, board_to_screen(p), 10);
+        }
+
+
+
+    }
+
 
 
 /*
@@ -107,6 +272,7 @@ View::draw(ge211::Sprite_set& set)
         }
     }
      */
+    /*
     ge211::Text_sprite::Builder text_builder(sans72);
     //replace with current player and ships
     text_builder << "Player 1 has sunk player 2's aircraft";
@@ -123,7 +289,7 @@ View::draw(ge211::Sprite_set& set)
         if(model_.winner() == model_.p1()){
             set.add_sprite(p1_winner,{160,280}, 20);
         }
-        if(model_.winner() == model_.p2()){
+        else if(!model_.winner()){
             set.add_sprite(p2_winner,{160,280}, 20);
         }
     }

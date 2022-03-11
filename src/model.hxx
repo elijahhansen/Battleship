@@ -22,7 +22,7 @@ public:
     //std::vector<Ship> turn() const
     //{ return turn_; }
 
-    std::vector<Ship> winner() const
+    bool  winner() const
     { return winner_; }
 
     std::vector<Ship> p1() const
@@ -48,9 +48,10 @@ public:
     Position_set p_test() const
     { return pset_test;}
 
-    std::vector<Ship> player() const
-    { return player_; }
+    bool get_turn()
+    {return turn_;}
 
+    //double seconds() const;
 
     bool play_at_pos(Position);
 
@@ -62,7 +63,7 @@ public:
 
     bool advance_turn_();
 
-    std::vector<Ship> other_player(bool player);
+    std::vector<Ship> other_player(bool turn);
 
     std::vector<Position> other_hits(bool hit);
 
@@ -71,7 +72,7 @@ public:
     void set_game_over();
     void get_pset(std::vector<Position> vec);
 
-    bool is_opening_phase();
+    bool is_opening_phase() const;
 
     std::vector<Ship> p1_;
     std::vector<Ship> p2_;
@@ -88,14 +89,13 @@ public:
 private:
     //std::vector<Ship> p1_;
     //std::vector<Ship> p2_;
-    bool turn_;
     std::vector<Position> hits_1_;
     std::vector<Position> hits_2_;
     std::vector<Position> miss_1_;
     std::vector<Position> miss_2_;
     std::vector<Position> & turn_miss_ = miss_1_;
     std::vector<Position> & turn_hits_ = hits_1_;
-    std::vector<Ship> winner_;
+    bool winner_;
     std::vector<Position> v;
     Position_set pset_test;
 

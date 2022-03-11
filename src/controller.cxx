@@ -62,6 +62,7 @@ Controller::initial_window_title() const
 void
 Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 {
+
     if (model_.is_opening_phase()) {
         Ship s;
         if (model_.player_.size() < 5) {
@@ -88,17 +89,16 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
                     }
                     model_.get_pset(model_.v_vec);
 
-                } else if (pos1.y == pos2.y) {
-                    while (pos2.x != pos1.x) {
-                        if (pos2.x > pos1.x) {
-                            pos1.x++;
-                            model_.v_vec.push_back({pos1.x, pos1.y});
-                        }
-                        if (pos2.x < pos1.x) {
-                            pos2.x++;
-                            model_.v_vec.push_back({pos2.x, pos1.y});
-                        }
-                        //model_.v_vec.push_back({pos1.x+i, pos1.y});
+                    } else if (pos1.y == pos2.y) {
+                        while (pos2.x != pos1.x) {
+                            if (pos2.x > pos1.x) {
+                                pos1.x++;
+                                model_.v_vec.push_back({pos1.x, pos1.y});
+                            } else if (pos2.x < pos1.x) {
+                                model_.v_vec.push_back({pos2.x, pos1.y});
+                                pos2.x++;
+                            }
+                            //model_.v_vec.push_back({pos1.x+i, pos1.y});
 
                     }
                     model_.get_pset(model_.v_vec);
@@ -144,8 +144,9 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
     //call function to make pset
     //clear
 
-    if(model_.play_at_pos(view_.screen_to_board(position)) && !model_.is_opening_phase()){
-        std::cout << "attack";
+    else if(model_.play_at_pos(view_.screen_to_board(position)) && !model_
+    .is_opening_phase()){
+        //std::cout << "attack";
         model_.play_attack(view_.screen_to_board(position));
     }
 
