@@ -109,7 +109,7 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 
                 }
 
-                s.pset_ = model_.p_test();
+                s.pset_ = model_.get_pset(model_.v_vec);
                 model_.p1_.push_back(s);
                 //std::cout << model_.p1_.size();
                 //std::cout << model_.p2_.size();
@@ -140,7 +140,7 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
                             }
 
                         }
-                        model_.get_pset(model_.v_vec);
+                        //model_.get_pset(model_.v_vec);
 
                     } else if (pos1.y == pos2.y) {
                         while (pos2.x != pos1.x) {
@@ -154,7 +154,7 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
                             //model_.v_vec.push_back({pos1.x+i, pos1.y});
 
                         }
-                        model_.get_pset(model_.v_vec);
+                        //model_.get_pset(model_.v_vec);
 
                     }
                     //model_.v_vec.push_back(pos2);
@@ -162,7 +162,7 @@ Controller::on_mouse_up(ge211::Mouse_button, ge211::Posn<int> position)
 
                 }
 
-                s.pset_ = model_.p_test();
+                s.pset_ = model_.get_pset(model_.v_vec);
                 model_.p2_.push_back(s);
                 //std::cout << model_.p1_.size();
                 //std::cout << model_.p2_.size();

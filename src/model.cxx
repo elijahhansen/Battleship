@@ -267,7 +267,8 @@ Model::get_pset(std::vector<Position> vec)
     //v.push_back(p1);
     //v.push_back(p2);
     Position_set ship_pos_set(vec.begin(), vec.end());
-    pset_test = ship_pos_set;
+    std::cout << ship_pos_set << "\n";
+    return ship_pos_set;
     //v_vec.clear();
 
     //std::cout << pset_test << "\n";

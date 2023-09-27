@@ -24,6 +24,7 @@ public:
     //{ return turn_; }
 
 
+
     std::vector<Ship> p1() const
     { return p1_; }
 
